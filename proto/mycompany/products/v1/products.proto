@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package mycompany.products.v1;
+
+// Go package option
+option go_package = "mycompany/gen/go/products/v1;productsv1";
+
+// Represents a product offered
+message Product {
+  string product_id = 1; // Unique identifier for the product
+  string sku = 2;        // Stock Keeping Unit
+  string name = 3;
+  string description = 4;
+  double price = 5; // Consider using google.type.Money or a custom decimal type
+  bool available = 6; // Indicates if the product is currently available
+}
+
+// Request message for getting a product
+message GetProductRequest {
+  string product_id = 1; // The ID of the product to retrieve
+}
+
+message GetProductResponse {
+  Product product = 1;
+}
+
+// Request message for listing products (potentially with pagination/filtering)
+message ListProductsRequest {
+  int32 page_size = 1;  // Number of products to return
+  string page_token = 2; // Token for fetching the next page
+  // Add filter fields here, e.g., string category_id = 3;
+}
+
+// Response message for listing products
+message ListProductsResponse {
+  repeated Product products = 1;
+  string next_page_token = 2; // Token for the next page, empty if no more pages
+}
+
+// Service for managing products
+service ProductService {
+  // Retrieves a specific product
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+
+  // Lists available products
+  rpc ListProducts(ListProductsRequest) returns (ListProductsResponse);
+}

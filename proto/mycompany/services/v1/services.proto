@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package mycompany.services.v1; // Example: Domain for internal operational services
+
+// Go package option
+option go_package = "mycompany/gen/go/services/v1;servicesv1";
+
+// Represents the operational status of an internal service
+enum ServiceStatus {
+  SERVICE_STATUS_UNSPECIFIED = 0;
+  SERVICE_STATUS_STARTING = 1;
+  SERVICE_STATUS_RUNNING = 2;
+  SERVICE_STATUS_DEGRADED = 3;
+  SERVICE_STATUS_STOPPED = 4;
+  SERVICE_STATUS_UNKNOWN = 5;
+}
+
+// Represents an internal microservice or component
+message Service {
+  string service_id = 1;   // Unique identifier for the service instance
+  string service_name = 2; // Logical name of the service type (e.g., "accounts-service")
+  string endpoint = 3;     // Network endpoint (e.g., "10.0.1.5:8080")
+  ServiceStatus status = 4;
+  string version = 5;      // Deployed version of the service
+}
+
+// Request to get the status of a specific service
+message GetServiceStatusRequest {
+  string service_id = 1; // ID of the service instance to query
+}
+
+message GetServiceStatusResponse {
+  Service service = 1;
+}
+
+// Request to list registered services (potentially with filtering)
+message ListServicesRequest {
+  // Add filter fields here, e.g., string service_name_filter = 1;
+}
+
+// Response containing a list of services
+message ListServicesResponse {
+  repeated Service services = 1;
+}
+
+// Service for discovering and managing internal services (example)
+service InternalServiceRegistryService {
+  // Retrieves the status and details of a specific service instance
+  rpc GetServiceStatus(GetServiceStatusRequest) returns (GetServiceStatusResponse);
+
+  // Lists registered service instances
+  rpc ListServices(ListServicesRequest) returns (ListServicesResponse);
+
+  // Could add methods like RegisterService, DeregisterService etc.
+}
+

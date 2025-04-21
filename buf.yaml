@@ -1,0 +1,14 @@
+# buf.yaml
+version: v2
+modules:
+  - path: proto
+    name: github.com/my-protobuf-project/protos
+deps:
+  # Add dependencies here if needed, e.g.:
+  - buf.build/googleapis/googleapis
+lint:
+  use:
+    - STANDARD
+breaking:
+  use:
+    - FILE

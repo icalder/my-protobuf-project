@@ -1,0 +1,15 @@
+# .gitignore
+
+# Generated code directory
+/gen/
+
+# Buf lock file (optional, depends on workflow)
+# buf.lock
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/

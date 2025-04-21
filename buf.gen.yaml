@@ -1,0 +1,26 @@
+# buf.gen.yaml
+version: v2
+plugins:
+  # Go generation
+  - remote: buf.build/protocolbuffers/go
+    out: gen/go
+    opt: paths=source_relative
+  - remote: buf.build/grpc/go
+    out: gen/go
+    opt: paths=source_relative,require_unimplemented_servers=false
+
+  # Rust generation (using local protoc-gen-prost and protoc-gen-tonic)
+  # Ensure protoc-gen-prost is in your PATH
+  #- name: prost
+  - remote: buf.build/community/neoeinstein-prost:v0.4.0
+    out: gen/rust
+    # Buf finds 'protoc-gen-prost' in PATH if 'path' is not specified
+    # path: /path/to/protoc-gen-prost # Optional: Explicit path
+
+  # Ensure protoc-gen-tonic is in your PATH
+  # - name: tonic
+  - remote: buf.build/community/neoeinstein-tonic:v0.4.1
+    out: gen/rust
+    # Buf finds 'protoc-gen-tonic' in PATH if 'path' is not specified
+    # path: /path/to/protoc-gen-tonic # Optional: Explicit path
+    # strategy: all # Use 'all' if tonic needs to process files included by services
