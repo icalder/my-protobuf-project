@@ -30,10 +30,10 @@ Ensure the `protoc-gen-*` binaries are in your system's `PATH`.
 Check for style and consistency issues:
 
 ```powershell
-podman run -v "${PWD}:/workspace" --workdir /workspace bufbuild/buf lint
+podman run --rm -v "${PWD}:/workspace" --workdir /workspace bufbuild/buf lint
 ```
 
 ### Generate code
 ```powershell
-podman run -v "${PWD}:/workspace" --workdir /workspace bufbuild/buf generate
+podman run --rm -v "${PWD}:/workspace" --workdir /workspace bufbuild/buf generate
 ```
