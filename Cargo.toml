@@ -1,0 +1,13 @@
+[package]
+name = "my-protobuf-project"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+path = "gen/rust/mod.rs"
+
+[dependencies]
+prost = "0.13.5"
+prost-types = "0.13.5"
+pbjson-types = "0.7.0"
+tonic = "0.12.0"

@@ -12,13 +12,23 @@ plugins:
   # Rust generation (using remote plugins)
   - remote: buf.build/community/neoeinstein-prost:v0.4.0
     out: gen/rust
+    opt:
+      - compile_well_known_types
+      - extern_path=.google.protobuf=::pbjson_types
     # Buf finds 'protoc-gen-prost' in PATH if 'path' is not specified
     # path: /path/to/protoc-gen-prost # Optional: Explicit path
   - remote: buf.build/community/neoeinstein-tonic:v0.4.1
     out: gen/rust
+    opt:
+      - compile_well_known_types
+      - extern_path=.google.protobuf=::pbjson_types
     # Buf finds 'protoc-gen-tonic' in PATH if 'path' is not specified
     # path: /path/to/protoc-gen-tonic # Optional: Explicit path
     # strategy: all # Use 'all' if tonic needs to process files included by services
+  - remote: buf.build/community/neoeinstein-prost-crate:v0.4.1
+    out: gen/rust
+    opt:
+      - no_features
 
   # TypeScript generation (using @bufbuild/es and @connectrpc/connect-es)
   # Generates base types (messages, enums)
