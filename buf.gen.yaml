@@ -9,18 +9,29 @@ plugins:
     out: gen/go
     opt: paths=source_relative,require_unimplemented_servers=false
 
-  # Rust generation (using local protoc-gen-prost and protoc-gen-tonic)
-  # Ensure protoc-gen-prost is in your PATH
-  #- name: prost
+  # Rust generation (using remote plugins)
   - remote: buf.build/community/neoeinstein-prost:v0.4.0
     out: gen/rust
     # Buf finds 'protoc-gen-prost' in PATH if 'path' is not specified
     # path: /path/to/protoc-gen-prost # Optional: Explicit path
-
-  # Ensure protoc-gen-tonic is in your PATH
-  # - name: tonic
   - remote: buf.build/community/neoeinstein-tonic:v0.4.1
     out: gen/rust
     # Buf finds 'protoc-gen-tonic' in PATH if 'path' is not specified
     # path: /path/to/protoc-gen-tonic # Optional: Explicit path
     # strategy: all # Use 'all' if tonic needs to process files included by services
+
+  # TypeScript generation (using @bufbuild/es and @connectrpc/connect-es)
+  # Generates base types (messages, enums)
+  - remote: buf.build/bufbuild/es
+    out: gen/ts
+    opt:
+      - target=ts # Specify TypeScript output
+      # - paths=source_relative # Optional: Keep generated files near proto sources in output dir
+
+  # Generates Connect-RPC service definitions (recommended for web/Node.js)
+  - remote: buf.build/connectrpc/es # Note: Renamed from bufbuild/connect-es
+    out: gen/ts
+    opt:
+      - target=ts # Specify TypeScript output
+      # - paths=source_relative # Optional: Keep generated files near proto sources in output dir
+      # - js_import_style=module # Optional: If you need explicit .js extensions in imports
