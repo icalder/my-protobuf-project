@@ -37,3 +37,10 @@ podman run --rm -v "${PWD}:/workspace" --workdir /workspace bufbuild/buf lint
 ```powershell
 podman run --rm -v "${PWD}:/workspace" --workdir /workspace bufbuild/buf generate
 ```
+
+### Running tests/examples
+```shell
+deno test
+
+cargo run
+```

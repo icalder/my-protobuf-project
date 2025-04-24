@@ -1,0 +1,8 @@
+{
+  "name": "@mycompany/my-protobuf-project",
+  "version": "0.1.0",
+  "exports": "./main.ts",
+  "imports": {
+    "@bufbuild/protobuf": "npm:@bufbuild/protobuf@^2.2.5"
+  }
+}
